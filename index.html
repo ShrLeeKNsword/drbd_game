@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>稍等一下！</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				user-select: none;
+				box-sizing: border-box;
+			}
+
+			html,
+			body {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				width: 100%;
+				height: 100%;
+			}
+
+			.box {
+				width: 400px;
+				height: 220px;
+				position: relative;
+				overflow: hidden;
+				box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+			}
+
+			.white {
+				width: 80px;
+				height: 70px;
+				background: white;
+				position: absolute;
+				left: 200px;
+				top: 50px;
+			}
+
+			.imgbox {
+				width: 100%;
+				height: 95%;
+				background: #95BBFF;
+				position: relative;
+			}
+
+			.btnbox {
+				width: 80px;
+				height: 100%;
+				bottom: 0px;
+				text-align: center;
+				position: absolute;
+			}
+
+			.btnboximg {
+				width: 80px;
+				height: 70px;
+				box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.2);
+				top: 50px;
+				position: absolute;
+				background: #95BBFF;
+			}
+
+			.btn {
+				width: 80px;
+				height: 10px;
+				position: absolute;
+				bottom: 0px;
+				background: #ccc;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="box">
+
+			<div class="imgbox">
+				<div class="white"></div>
+			</div>
+			<div class="btnbox">
+				<div class="btnboximg"></div>
+				<div class="btn"></div>
+			</div>
+		</div>
+		<script>
+			function IsPC() {
+				var userAgentInfo = navigator.userAgent;
+				var Agents = new Array("Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod");
+				var flag = true;
+				for (var v = 0; v < Agents.length; v++) {
+					if (userAgentInfo.indexOf(Agents[v]) > 0) {
+						flag = false;
+						break;
+					}
+				}
+				return flag;
+			}
+
+			console.log(IsPC())
+
+			var presentPC = IsPC()
+			if (presentPC) {
+				alert("接下来的页面会消耗大量流量,滑动滑块以继续访问，并表示您已同意了【https://www.drbd.tk】页末的相关条款")
+			}else{
+				if (confirm("接下来色页面会消耗大量流量，继续并表示您已同意了【https://www.drbd.tk】页末的相关条款？")) {
+					window.location.href = 'https://game.drbd.tk/game/index.html'
+				} else {
+					window.opener = null;
+					window.open('', '_self');
+					window.close();
+				}
+			}
+		</script>
+
+		<script>
+			var btn = document.getElementsByClassName("btn")[0];
+			var btnbox = document.getElementsByClassName("btnbox")[0];
+			var left;
+			btn.onmousedown = function(ev) {
+				var oEvent = ev || event;
+				var x = oEvent.clientX - btnbox.offsetLeft;
+				document.onmousemove = function(ev) {
+					var oEvent = ev || event;
+					var x1 = oEvent.clientX - x;
+					btnbox.style.left = x1 + "px";
+					btnbox.style.transition = "none";
+					left = x1;
+				}
+				document.onmouseup = function() {
+					document.onmousedown = null;
+					document.onmousemove = null;
+					if (left >= 199 && left <= 201) {
+						alert("验证通过，即将跳转……");
+						window.location.href = 'https://game.drbd.tk/game/index.html'
+					} else {
+						alert("验证失败，请再试一次！");
+						btnbox.style.transition = "all .2s ease-out";
+						btnbox.style.left = "40px"
+					}
+				}
+			}
+		</script>
+	</body>
+
+</html>
+<!--源bilibili作者 https://space.bilibili.com/1333864514 -->
+<!--非常感谢该作者提供的灵感 -->
+<!--更多咨询请联系邮箱mail@drbd.tk 或在B站搜“弹丸论破DRBD” -->
